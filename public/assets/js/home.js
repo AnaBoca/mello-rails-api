@@ -1,8 +1,9 @@
+const $submitButton = $('#submit');
 const $setLogin = $('#login');
 const $setSignUp = $('#signup');
-const $submitButton = $('#submit');
 const $emailInput = $('#email');
 const $passwordInput = $('#password');
+const $message = $('#message');
 
 let authSetting = 'login';
 
@@ -26,11 +27,36 @@ function handleFormSubmit(event) {
   let email = $emailInput.val().trim();
   let password = $passwordInput.val().trim();
 
-  console.log(
-    `Email: ${email} Password: ${password} AuthSetting: ${authSetting}`
-  );
+  if (!email || !password) {
+    displayMessage('Email and password fields cannot be blank.', 'danger');
+    return;
+  }
+
+  $emailInput.val('');
+  $passwordInput.val('');
+
+  authenticateUser(email, password);
+}
+
+function displayMessage(message, type) {
+  $message.text(message).attr('class', type);
+}
+
+function authenticateUser(email, password) {
+  $.ajax({
+    url: '/' + authSetting,
+    data: {
+      user: {
+        email,
+        password
+      }
+    },
+    method: 'POST'
+  }).then(function(data) {
+    console.log(data);
+  });
 }
 
 $setLogin.on('click', setAuth.bind(null, 'login'));
-$setLogin.on('click', setAuth.bind(null, 'login'));
 $setSignUp.on('click', setAuth.bind(null, 'signup'));
+$submitButton.on('click', handleFormSubmit);
