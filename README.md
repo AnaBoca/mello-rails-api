@@ -7,4 +7,4 @@ Deployed to GitHub Pages: [mello-rails-api](https://mello-ana-boca.herokuapp.com
 
 ## 🗐 Home Page
 
-![Home Page]()
+![Home Page](https://github.com/AnaBoca/mello-rails-api/blob/master/public/assets/images/home.jpg)
